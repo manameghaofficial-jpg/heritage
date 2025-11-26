@@ -1,89 +1,474 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sharshi Science Heritage</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              brand: {
-                black: '#000000',
-                red: '#FF0033',
-                crimson: '#8A0015',
-                silver: '#C0C0C0',
-                neon: '#F4F4F4',
-                blue: '#00C8FF',
-                purple: '#6600FF',
-              }
-            },
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              display: ['Orbitron', 'sans-serif'],
-            },
-            animation: {
-              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-              'glow': 'glow 2s ease-in-out infinite alternate',
-            },
-            keyframes: {
-              glow: {
-                '0%': { boxShadow: '0 0 5px #FF0033, 0 0 10px #FF0033' },
-                '100%': { boxShadow: '0 0 20px #FF0033, 0 0 30px #8A0015' },
-              }
-            }
-          },
-        },
-      }
-    </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-      body {
-        background-color: #000000;
-        color: #F4F4F4;
-        font-family: 'Inter', sans-serif;
-      }
-      h1, h2, h3, h4, h5, h6, .font-display {
-        font-family: 'Orbitron', sans-serif;
-      }
-      /* Custom Scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #1a1a1a;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #FF0033;
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #8A0015;
-      }
-      .glass-panel {
-        background: rgba(20, 20, 20, 0.6);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-      }
-    </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
-    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.6",
-    "recharts": "https://aistudiocdn.com/recharts@^3.5.0"
-  }
-}
-</script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sharshi Science Heritage</title>
+  <meta name="description" content="Sharshi Science Heritage — international e-commerce, video streaming, futuristic science and admin-ready single-file demo." />
+  <meta name="theme-color" content="#0f172a" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+  <style>
+    /* Extra small custom styles */
+    body{font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;}
+    .glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(6px); }
+    .fade-up { transform: translateY(12px); opacity: 0; transition: all 600ms ease; }
+    .fade-up.in { transform: translateY(0); opacity: 1; }
+    .card-hover:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(2,6,23,0.25); }
+  </style>
 </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<body class="bg-gradient-to-br from-black via-red-900 to-black text-gray-100 antialiased leading-relaxed">
+  <!-- NAVBAR -->
+  <header class="fixed w-full z-50 bg-gradient-to-r from-black via-red-800 to-black/80 shadow">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md hover:bg-white/10"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        <a href="#home" class="flex items-center space-x-3">
+          <div class="w-10 h-10 bg-gradient-to-br from-red-600 to-black rounded-full flex items-center justify-center font-bold text-xl">S</div>
+          <div>
+            <h1 class="text-xl font-bold leading-none">Sharshi Science</h1>
+            <p class="text-xs text-white/70 -mt-1">Heritage • Futures • Commerce</p>
+          </div>
+        </a>
+      </div>
+
+      <nav id="nav" class="hidden md:flex items-center space-x-6 font-medium text-sm">
+        <a href="#products" class="hover:text-indigo-300">Shop</a>
+        <a href="#videos" class="hover:text-indigo-300">Streaming</a>
+        <a href="#tech" class="hover:text-indigo-300">Research</a>
+        <a href="#learn" class="hover:text-indigo-300">Learn</a>
+        <a href="#contact" class="hover:text-indigo-300">Contact</a>
+        <div class="flex items-center space-x-2">
+          <input id="search" type="search" placeholder="Search products..." class="px-3 py-2 rounded-md bg-white/5 placeholder:text-white/60 text-sm outline-none focus:ring-2 focus:ring-red-500" />
+          <button id="cart-btn" class="relative p-2 rounded-md hover:bg-white/5" aria-label="Open cart">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9h14l-2-9M10 21a1 1 0 11-2 0 1 1 0 012 0zm8 0a1 1 0 11-2 0 1 1 0 012 0z"/></svg>
+            <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1">0</span>
+          </button>
+        </div>
+      </nav>
+
+      <div class="md:hidden">
+        <button id="auth-btn" class="px-3 py-1 rounded-md bg-white/8 text-sm">Login</button>
+      </div>
+    </div>
+
+    <!-- MOBILE MENU -->
+    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
+      <div class="grid gap-2">
+        <a href="#products" class="block py-2">Shop</a>
+        <a href="#videos" class="block py-2">Streaming</a>
+        <a href="#tech" class="block py-2">Research</a>
+        <a href="#learn" class="block py-2">Learn</a>
+        <a href="#contact" class="block py-2">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main class="pt-28">
+    <section id="home" class="relative overflow-hidden pb-24 pt-20">
+  <!-- CINEMATIC BACKGROUND LAYERS -->
+  <div class="absolute inset-0 bg-gradient-to-br from-black via-red-950 to-black animate-pulse opacity-70"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,0,0,0.18),transparent_70%)] animate-pulse-slow"></div>
+
+  <!-- FLOATING ENERGY ORBS -->
+  <div class="absolute -top-10 left-10 w-72 h-72 bg-red-600/30 blur-3xl rounded-full animate-orbit"></div>
+  <div class="absolute bottom-0 right-0 w-[420px] h-[420px] bg-red-900/40 blur-3xl rounded-full animate-orbit-slow"></div>
+
+  <!-- SUBTLE PARTICLE FIELD -->
+  <div class="pointer-events-none absolute inset-0 overflow-hidden">
+    <div class="w-px h-24 bg-red-500/40 absolute top-10 left-1/3 animate-particle"></div>
+    <div class="w-px h-32 bg-red-400/30 absolute top-1/4 left-2/3 animate-particle-delayed"></div>
+  </div>
+
+  <div class="relative max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+    <!-- LEFT SIDE -->
+    <div>
+      <h2 class="text-6xl font-extrabold leading-tight drop-shadow-xl tracking-tight">
+        Welcome to the <span class="text-red-500">Next Era</span><br>
+        of Advanced Science
+      </h2>
+      <p class="mt-6 text-lg text-gray-300 max-w-lg leading-relaxed">
+        A futuristic ecosystem combining scientific innovation, e‑commerce, immersive streaming,
+        and next-generation research tools — engineered for the world of tomorrow.
+      </p>
+
+      <div class="mt-10 flex flex-wrap gap-4">
+        <a href="#products" class="px-7 py-3 bg-gradient-to-r from-red-700 to-black rounded-xl text-white font-semibold shadow-2xl hover:shadow-red-600/40 transition-all duration-300 hover:scale-105">Explore Products</a>
+        <a href="#videos" class="px-7 py-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl font-semibold hover:bg-white/20 hover:scale-105 transition-all duration-300">Watch Live</a>
+      </div>
+
+      <!-- GLASS STATS -->
+      <div class="mt-12 grid grid-cols-2 gap-5">
+        <div class="glass p-5 rounded-2xl border border-white/10 shadow-xl animate-float">
+          <p class="text-xs text-gray-300">Active Researchers</p>
+          <p class="text-3xl font-bold">20,000+</p>
+        </div>
+        <div class="glass p-5 rounded-2xl border border-white/10 shadow-xl animate-float-slow">
+          <p class="text-xs text-gray-300">Tech Innovations</p>
+          <p class="text-3xl font-bold">480+</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE – 3D FLOAT PANEL -->
+    <div class="relative">
+      <div class="rounded-3xl overflow-hidden shadow-2xl border border-red-900/40 backdrop-blur-xl transform hover:scale-[1.02] transition-all duration-500">
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200&q=80&auto=format&fit=crop" class="w-full h-[450px] object-cover" />
+      </div>
+
+      <!-- FLOATING HOLOGRAM CARD -->
+      <div class="absolute -bottom-12 left-8 w-80 p-6 backdrop-blur-2xl bg-white/10 border border-white/20 rounded-2xl shadow-2xl animate-hologram">
+        <h4 class="text-xl font-bold">AI‑Powered Virtual Lab</h4>
+        <p class="text-sm text-gray-300 mt-2">Interact with futuristic research environments in real-time.</p>
+        <button class="mt-4 px-5 py-2 bg-gradient-to-r from-red-600 to-black rounded-xl text-white text-sm shadow-lg hover:scale-105 transition-all">Learn More</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- PRODUCTS + FILTERS -->
+    <section id="products" class="max-w-7xl mx-auto px-6 py-12">
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-3xl font-bold">Featured Products</h3>
+        <div class="flex items-center gap-3 text-sm">
+          <label class="flex items-center gap-2">Category:
+            <select id="filter-category" class="bg-white/5 px-3 py-2 rounded text-gray-100 text-sm">
+              <option value="all">All</option>
+              <option value="gadgets">Gadgets</option>
+              <option value="kits">Kits</option>
+              <option value="accessories">Accessories</option>
+            </select>
+          </label>
+          <label class="flex items-center gap-2">Sort:
+            <select id="sort-by" class="bg-white/5 px-3 py-2 rounded text-gray-100 text-sm">
+              <option value="pop">Popular</option>
+              <option value="low">Price: Low → High</option>
+              <option value="high">Price: High → Low</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div id="products-grid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
+
+      <div class="mt-8 text-center">
+        <button id="load-more" class="px-5 py-3 rounded-md bg-red-600/90">Load more</button>
+      </div>
+    </section>
+
+    <!-- VIDEO STREAMING / GALLERY -->
+    <section id="videos" class="bg-gray-800/40 py-12">
+      <div class="max-w-7xl mx-auto px-6">
+        <h3 class="text-3xl font-bold mb-6">Streaming & Lectures</h3>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="relative rounded-xl overflow-hidden shadow-lg">
+            <iframe id="main-player" class="w-full h-64" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen loading="lazy"></iframe>
+            <div class="p-4 bg-gradient-to-br from-black via-red-900 to-black/40">
+              <h4 class="font-semibold">Live: Future Materials</h4>
+              <p class="text-sm text-gray-300 mt-1">Next talk: Dr. A — Nov 30, 2025</p>
+            </div>
+          </div>
+
+          <div class="grid gap-4">
+            <div class="flex gap-3 items-center">
+              <img class="w-20 h-12 object-cover rounded" src="https://images.unsplash.com/photo-1581091870632-99b0b9f2b2b9?w=400&q=60&auto=format&fit=crop" loading="lazy" />
+              <div>
+                <p class="font-semibold">Quantum Intro — 12m</p>
+                <p class="text-xs text-gray-300">Short overview of quantum computing</p>
+              </div>
+              <button class="ml-auto px-3 py-1 bg-white/5 rounded" data-src="https://www.youtube.com/embed/dQw4w9WgXcQ">Play</button>
+            </div>
+            <div class="flex gap-3 items-center">
+              <img class="w-20 h-12 object-cover rounded" src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?w=400&q=60&auto=format&fit=crop" loading="lazy" />
+              <div>
+                <p class="font-semibold">AI Ethics — 22m</p>
+                <p class="text-xs text-gray-300">A balanced view on deployment</p>
+              </div>
+              <button class="ml-auto px-3 py-1 bg-white/5 rounded" data-src="https://www.youtube.com/embed/dQw4w9WgXcQ">Play</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FUTURISTIC SCIENCE CARDS -->
+    <section id="tech" class="max-w-7xl mx-auto px-6 py-12">
+      <h3 class="text-3xl font-bold mb-6">Futuristic Labs & Research</h3>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <article class="p-6 rounded-xl bg-gradient-to-br from-white/4 to-white/2 card-hover">
+          <h4 class="font-semibold">Advanced Robotics</h4>
+          <p class="text-sm text-gray-300 mt-2">Humanoid prototypes & control systems.</p>
+        </article>
+        <article class="p-6 rounded-xl bg-gradient-to-br from-white/4 to-white/2 card-hover">
+          <h4 class="font-semibold">Space Research</h4>
+          <p class="text-sm text-gray-300 mt-2">In-situ resource utilization experiments.</p>
+        </article>
+        <article class="p-6 rounded-xl bg-gradient-to-br from-white/4 to-white/2 card-hover">
+          <h4 class="font-semibold">AI & Quantum</h4>
+          <p class="text-sm text-gray-300 mt-2">Hybrid models for materials discovery.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- LEARN / BLOG SNIPPETS -->
+    <section id="learn" class="bg-gradient-to-br from-black via-red-900 to-black/60 py-12">
+  <div class="max-w-7xl mx-auto px-6">
+    <h3 class="text-3xl font-bold mb-6">Learn — Articles, Tutorials & Daily Blogs</h3>
+
+    <!-- BLOG EDITOR -->
+    <div class="mb-10 p-6 bg-white/5 rounded-xl backdrop-blur-xl border border-white/10 shadow-xl">
+      <h4 class="text-xl font-semibold mb-3">✍ Write Your Daily Blog</h4>
+      <textarea id="blog-text" rows="4" class="w-full p-3 rounded bg-white/10 border border-white/20" placeholder="Write something for today..."></textarea>
+      <button id="save-blog" class="mt-3 px-5 py-2 bg-red-600 rounded text-white">Save Blog</button>
+      <p id="blog-status" class="text-green-400 text-sm mt-2 hidden">Saved!</p>
+    </div>
+
+    <!-- BLOG DISPLAY -->
+    <div class="p-6 bg-white/5 rounded-xl backdrop-blur-xl border border-white/10 shadow-xl">
+      <h4 class="text-xl font-semibold mb-3">📚 Your Daily Blog Entries</h4>
+      <div id="blog-list" class="grid gap-4 text-sm text-gray-300"></div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- CONTACT & FOOTER -->
+    <section id="contact" class="max-w-4xl mx-auto px-6 py-12">
+      <h3 class="text-2xl font-bold mb-4">Contact & Collaborations</h3>
+      <form id="contact-form" class="grid gap-3">
+        <input id="name" class="p-3 rounded bg-white/5" placeholder="Your name" required />
+        <input id="email" type="email" class="p-3 rounded bg-white/5" placeholder="Email" required />
+        <textarea id="message" rows="4" class="p-3 rounded bg-white/5" placeholder="Message" required></textarea>
+        <div class="flex items-center gap-3">
+          <button type="submit" class="px-4 py-2 bg-red-600 rounded">Send</button>
+          <div id="contact-status" class="text-sm text-green-400 hidden">Message sent</div>
+        </div>
+      </form>
+    </section>
+
+    <footer class="mt-12 py-6 bg-gradient-to-r from-indigo-900 to-purple-900 text-center text-sm text-gray-300">
+      <div class="max-w-7xl mx-auto px-6">&copy; 2025 Sharshi Science Heritage — Built for prototypes & demos</div>
+    </footer>
+  </main>
+
+  <!-- CART SIDEBAR -->
+  <aside id="cart" class="fixed right-0 top-0 h-full w-96 bg-gradient-to-br from-black via-red-900 to-black/95 shadow-lg transform translate-x-full transition-transform z-60">
+    <div class="p-6">
+      <div class="flex items-center justify-between">
+        <h4 class="font-bold">Your Cart</h4>
+        <button id="close-cart" class="p-2 rounded hover:bg-white/5">Close</button>
+      </div>
+      <div id="cart-items" class="mt-4 space-y-3 max-h-72 overflow-auto"></div>
+      <div class="mt-4 border-t border-white/10 pt-4">
+        <div class="flex justify-between font-semibold">Total <span id="cart-total">₹0</span></div>
+        <button id="checkout" class="w-full mt-3 px-4 py-2 bg-red-600 rounded">Checkout</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MODALS -->
+  <div id="modal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
+    <div class="bg-gray-800 rounded-lg max-w-3xl w-full p-6">
+      <button id="modal-close" class="mb-2">Close</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- ADMIN DEMO (SIMPLE) -->
+  <div id="admin-demo" class="fixed inset-0 bg-black/70 hidden items-start justify-center p-6 z-50 overflow-auto">
+    <div class="bg-white text-gray-900 rounded-lg w-full max-w-4xl p-6">
+      <div class="flex justify-between items-center">
+        <h3 class="font-bold">Admin — Dashboard (Demo)</h3>
+        <button id="close-admin">Close</button>
+      </div>
+      <div class="mt-4 grid md:grid-cols-3 gap-4">
+        <div class="p-4 bg-gray-100 rounded">Orders<br/><strong id="admin-orders">0</strong></div>
+        <div class="p-4 bg-gray-100 rounded">Products<br/><strong id="admin-products">0</strong></div>
+        <div class="p-4 bg-gray-100 rounded">Visitors<br/><strong id="admin-visitors">0</strong></div>
+      </div>
+      <div class="mt-6">
+        <h4 class="font-semibold">Quick actions</h4>
+        <div class="mt-2 flex gap-2">
+          <button id="add-demo-product" class="px-3 py-2 bg-red-600 text-white rounded">Add product</button>
+          <button id="seed-products" class="px-3 py-2 bg-gray-800 text-white rounded">Seed sample</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script>
+    /* --------------------- Demo product data + rendering --------------------- */
+    const PRODUCTS_PER_PAGE = 6;
+    let products = [
+      {id: 'p1', title: 'Quantum AI Kit', price: 12500, category: 'kits', image: 'https://images.unsplash.com/photo-1581091012184-7b3d7f4e3a23?w=800&q=60'},
+      {id: 'p2', title: 'Nano Drone', price: 4999, category: 'gadgets', image: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=800&q=60'},
+      {id: 'p3', title: 'Sensor Pack', price: 1999, category: 'accessories', image: 'https://images.unsplash.com/photo-1509395176047-4a66953fd231?w=800&q=60'},
+      {id: 'p4', title: 'Robotics Arm', price: 18999, category: 'gadgets', image: 'https://images.unsplash.com/photo-1518779578993-ec3579fee39f?w=800&q=60'},
+      {id: 'p5', title: 'AI Module', price: 7999, category: 'kits', image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=60'},
+      {id: 'p6', title: 'Solar Panel Kit', price: 3299, category: 'kits', image: 'https://images.unsplash.com/photo-1509395176047-4a66953fd231?w=800&q=60'},
+      {id: 'p7', title: 'Wearable Sensor', price: 1499, category: 'accessories', image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=60'},
+      {id: 'p8', title: 'Holographic Display', price: 25999, category: 'gadgets', image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=60'}
+    ];
+
+    // Cart state persisted in localStorage
+    const cartKey = 'ss_cart_v1';
+    let cart = JSON.parse(localStorage.getItem(cartKey) || '{}');
+
+    function saveCart() { localStorage.setItem(cartKey, JSON.stringify(cart)); updateCartUI(); }
+
+    function updateCartUI(){
+      const itemsEl = document.getElementById('cart-items');
+      itemsEl.innerHTML = '';
+      let total = 0, count = 0;
+      for(const id in cart){
+        const p = products.find(x=>x.id===id);
+        const qty = cart[id];
+        total += p.price*qty; count += qty;
+        const row = document.createElement('div');
+        row.className='flex items-center gap-3';
+        row.innerHTML = `
+          <img src="${p.image}" class="w-14 h-10 object-cover rounded" />
+          <div class="flex-1">
+            <div class="font-semibold">${p.title}</div>
+            <div class="text-sm text-gray-400">₹${p.price} x ${qty}</div>
+          </div>
+          <div class="flex flex-col gap-1">
+            <button data-id="${id}" class="add-one px-2 py-1 bg-white/5 rounded">+</button>
+            <button data-id="${id}" class="remove-one px-2 py-1 bg-white/5 rounded">-</button>
+          </div>`;
+        itemsEl.appendChild(row);
+      }
+      document.getElementById('cart-total').textContent = `₹${total}`;
+      document.getElementById('cart-count').textContent = count;
+      document.getElementById('admin-orders').textContent = count;
+    }
+
+    function addToCart(id, qty=1){ cart[id] = (cart[id]||0) + qty; saveCart(); }
+    function removeOne(id){ if(!cart[id]) return; cart[id]--; if(cart[id]<=0) delete cart[id]; saveCart(); }
+
+    // Render products (supports pagination)
+    let page = 1;
+    function renderProducts(){
+      const grid = document.getElementById('products-grid');
+      grid.innerHTML = '';
+      const category = document.getElementById('filter-category').value;
+      const sort = document.getElementById('sort-by').value;
+      let list = products.slice();
+      if(category!=='all') list = list.filter(p=>p.category===category);
+      if(sort==='low') list.sort((a,b)=>a.price-b.price);
+      if(sort==='high') list.sort((a,b)=>b.price-a.price);
+      const start = 0; // show all loaded items — load-more controls how many exist in products array
+      const toShow = list.slice(0, PRODUCTS_PER_PAGE*page);
+
+      toShow.forEach(p=>{
+        const card = document.createElement('article');
+        card.className='glass-card bg-white/10 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-xl fade-up';
+        card.innerHTML = `
+          <img src="${p.image}" loading="lazy" class="w-full h-44 object-cover rounded mb-3" />
+          <h4 class="font-semibold">${p.title}</h4>
+          <div class="mt-2 flex items-center justify-between">
+            <div class="text-sm text-gray-300">₹${p.price}</div>
+            <div class="flex items-center gap-2">
+              <button data-id="${p.id}" class="quick-view px-3 py-1 bg-white/5 rounded">View</button>
+              <button data-id="${p.id}" class="add-to-cart px-3 py-1 bg-red-600 rounded">Add</button>
+            </div>
+          </div>`;
+        grid.appendChild(card);
+      });
+
+      // animate into view
+      document.querySelectorAll('.fade-up').forEach((el,i)=>setTimeout(()=>el.classList.add('in'), i*60));
+
+      document.querySelectorAll('.add-to-cart').forEach(b=>b.onclick = e=>{ addToCart(e.target.dataset.id); });
+      document.querySelectorAll('.quick-view').forEach(b=>b.onclick = e=>{ openModal(e.target.dataset.id); });
+    }
+
+    // Modal for quick view
+    function openModal(id){
+      const p = products.find(x=>x.id===id);
+      const body = document.getElementById('modal-body');
+      body.innerHTML = `<div class=\"grid md:grid-cols-2 gap-4\">
+  <img src=\"${p.image}\" class=\"w-full h-64 object-cover rounded\"/>
+  <div>
+    <h3 class=\"text-xl font-bold\">${p.title}</h3>
+    <p class=\"mt-2 text-sm text-gray-300\">Category: ${p.category}</p>
+    <p class=\"mt-4 font-semibold\">₹${p.price}</p>
+    <div class=\"mt-4 flex gap-2\">
+      <button id=\"modal-add\" class=\"px-3 py-2 bg-red-600 rounded\">Add to cart</button>
+      <button id=\"modal-buy\" class=\"px-3 py-2 bg-white/5 rounded\">Buy now</button>
+    </div>
+  </div>
+</div>`;
+      document.getElementById('modal').classList.remove('hidden');
+      document.getElementById('modal-close').onclick = ()=>document.getElementById('modal').classList.add('hidden');
+      document.getElementById('modal-add').onclick = ()=>{ addToCart(id); document.getElementById('modal').classList.add('hidden'); };
+    }
+
+    // Event wiring
+    document.addEventListener('DOMContentLoaded', ()=>{
+      renderProducts(); updateCartUI();
+
+      // mobile menu
+      document.getElementById('mobile-menu-btn').onclick = ()=>{ document.getElementById('mobile-menu').classList.toggle('hidden'); };
+
+      // cart open/close
+      const cartEl = document.getElementById('cart');
+      document.getElementById('cart-btn').onclick = ()=>{ cartEl.style.transform='translateX(0)'; };
+      document.getElementById('close-cart').onclick = ()=>{ cartEl.style.transform='translateX(100%)'; };
+
+      // cart item add/remove
+      document.getElementById('cart-items').addEventListener('click', e=>{
+        if(e.target.classList.contains('add-one')){ addToCart(e.target.dataset.id); }
+        if(e.target.classList.contains('remove-one')){ removeOne(e.target.dataset.id); }
+      });
+
+      // load more
+      document.getElementById('load-more').onclick = ()=>{ page++; renderProducts(); };
+
+      // filters
+      document.getElementById('filter-category').onchange = renderProducts;
+      document.getElementById('sort-by').onchange = renderProducts;
+
+      // quick play buttons for videos
+      document.querySelectorAll('[data-src]').forEach(b=>b.onclick = e=>{ document.getElementById('main-player').src = e.target.dataset.src; });
+
+      // contact form demo
+      document.getElementById('contact-form').onsubmit = e=>{
+        e.preventDefault(); document.getElementById('contact-status').classList.remove('hidden'); setTimeout(()=>document.getElementById('contact-status').classList.add('hidden'), 3000);
+      };
+
+      // modal close click on backdrop
+      document.getElementById('modal').addEventListener('click', e=>{ if(e.target.id==='modal') document.getElementById('modal').classList.add('hidden'); });
+
+      // admin demo
+      document.getElementById('open-demo-dashboard').onclick = ()=>{ document.getElementById('admin-demo').classList.remove('hidden'); document.getElementById('admin-products').textContent = products.length; };
+      document.getElementById('close-admin').onclick = ()=>{ document.getElementById('admin-demo').classList.add('hidden'); };
+      document.getElementById('seed-products').onclick = ()=>{ seedSample(); };
+      document.getElementById('add-demo-product').onclick = ()=>{ const id='p'+(products.length+1); products.push({id, title:'New Product '+id, price:999, category:'accessories', image:products[0].image}); renderProducts(); document.getElementById('admin-products').textContent = products.length; };
+
+      // basic search
+      document.getElementById('search').addEventListener('input', e=>{ const q=e.target.value.trim().toLowerCase(); if(!q){ renderProducts(); return;} const grid=document.getElementById('products-grid'); grid.innerHTML=''; const found = products.filter(p=>p.title.toLowerCase().includes(q)); found.forEach(p=>{ const card=document.createElement('article'); card.className='glass-card bg-white/10 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-xl'; card.innerHTML=`<img src="${p.image}" loading="lazy" class="w-full h-44 object-cover rounded mb-3" /><h4 class="font-semibold">${p.title}</h4><div class="mt-2 flex items-center justify-between"><div class="text-sm text-gray-300">₹${p.price}</div><div class="flex items-center gap-2"><button data-id="${p.id}" class="quick-view px-3 py-1 bg-white/5 rounded">View</button><button data-id="${p.id}" class="add-to-cart px-3 py-1 bg-red-600 rounded">Add</button></div></div>`; grid.appendChild(card); });
+      });
+
+      // admin visitors demo counter
+      document.getElementById('admin-visitors').textContent = Math.floor(Math.random()*1200+200);
+
+      // service worker registration (inline blob) — optional
+      if('serviceWorker' in navigator){
+        const swCode = `self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('activate',e=>{self.clients.claim();});self.addEventListener('fetch',e=>{/* basic offline fallback could be added */});`;
+        const blob = new Blob([swCode],{type:'application/javascript'});
+        const url = URL.createObjectURL(blob);
+        navigator.serviceWorker.register(url).catch(()=>{});
+      }
+
+      // keyboard shortcuts
+      window.addEventListener('keydown', e=>{ if(e.key==='c' && (e.ctrlKey||e.metaKey)){ e.preventDefault(); document.getElementById('cart').style.transform='translateX(0)'; } });
+    });
+
+    function seedSample(){ const sampleCount=8; for(let i=0;i<sampleCount;i++){ const id='seed'+Math.random().toString(36).slice(2,7); products.push({id, title:'Seed '+id, price: Math.floor(Math.random()*10000), category: ['gadgets','kits','accessories'][i%3], image: products[i%products.length].image}); } renderProducts(); document.getElementById('admin-products').textContent = products.length; }
+  </script>
+</body>
 </html>
